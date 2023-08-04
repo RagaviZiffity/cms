@@ -7,6 +7,8 @@ $dbName = "root";
 $dbPassword = "Admin@123";
 $dbname = "userDetails";
 
+$space_id= $_POST['space_id'];
+
 $conn = new mysqli($servername, $dbName, $dbPassword, $dbname);
 
 if ($conn->connect_error) {
@@ -16,19 +18,17 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['publish'])) {
     $page_description = $_POST["toolbox"];
     $title = $_POST["page_title"];
-    $space_id = $_POST["space_id"]; 
   
-    $sql = "INSERT INTO pages (`content`, `title`) VALUES (?, ?)";
+    $sql = "INSERT INTO pages (`content`, `title`, `spaceId`) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
         die("Error: " . $conn->error);
     }
     
-    $stmt->bind_param("ss", $page_description, $title);
+    $stmt->bind_param("ssi", $page_description, $title, $space_id);
     
     if ($stmt->execute()) {
-        echo $space_id;
         echo "Space created successfully!";
     } else {
         echo "Error: " . $stmt->error;

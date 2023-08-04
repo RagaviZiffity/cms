@@ -11,7 +11,12 @@
     
 </head>
 <body>
-
+    <?php
+    // space_id
+    $space_id= $_POST['space_id'];
+    echo $space_id;
+    ?>
+    
    <form action="editor.php" method="post">
    <input type="hidden" name="space_id" value="<?= $space_id; ?>">
     Title: <input type="text" name="page_title" required>

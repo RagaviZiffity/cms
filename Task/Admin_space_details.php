@@ -79,6 +79,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 <body>
     <div>
         <div>
+        <form action="user_action.php" method="post">
+        <label>Access permission: </label>
+        <input type="hidden" name="space_id" value="<?= $space_id; ?>">
+        <input type="text" name="space_access">
+        <br><br>
+        <input type="submit" name="Give_access" value="Give access">
+        </form>
+        </div>
+        <div>
         <h2>Space Details</h2>
         <h3>Name: <?= $space_name; ?></h3>
         <h3>Description: <?= $space_description; ?></h3>

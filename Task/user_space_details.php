@@ -1,5 +1,13 @@
 <?php
+session_start();
 include 'connection.php';
+
+if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
+    header("Location: LoginPage.php");
+    exit();
+}
+
+$user= $_SESSION['username'];
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $space_id = $_GET['id'];
@@ -16,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     } else {
         echo "Space not found.";
     }
-    $sql = "SELECT * FROM pages";
+    $sql = "SELECT * FROM pages where spaceId='$space_id'";
     $result = $conn->query($sql);
 
     
@@ -25,11 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $page_id = $row["page_id"];
-            $content = $row["content"];
             $title = $row["title"];
 
             // Store the page details in the array
-            $pages[] = array("id" => $page_id, "title" => $title, "content" => $content);
+            $pages[] = array("id" => $page_id, "title" => $title);
         }
     }
 } else {
@@ -62,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         }
 
         h2 {
-            text-align: center;
+            text-align: left;
         }
 
         h3 {
@@ -70,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         }
 
         form {
-            text-align: center;
+            text-align: left;
             margin-top: 20px;
         }
 
@@ -86,25 +93,34 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+
+        /* Style for the clickable page titles */
+        .page-link {
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
+        }
+
+        .page-link:hover {
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div>
         <div>
-        <h2>Space Details</h2>
-        <h3>Space name: <?= $space_name; ?></h3>
-        <h3>Description: <?= $space_description; ?></h3>
+            <h2>Space Details</h2>
+            <h3>Space name: <?= $space_name; ?></h3>
+            <h3>Description: <?= $space_description; ?></h3>
         </div>
         <?php
         if (!empty($pages)) {
             foreach ($pages as $page) {
                 $page_id = $page["id"];
                 $title = $page["title"];
-                $content = $page["content"];
 
-                // Display each page as a separate tag
-                echo "<h2>$title</h2>";
-                echo "<div>$content</div>";
+                // Create a clickable link for each page title
+                echo '<h2 class="page-link" onclick="window.location.href=\'view_content.php?space_id=' . $space_id . '&id=' . $page_id . '\'">' . $title . '</h2>';
                 echo "<hr>";
             }
         } else {
@@ -113,6 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         ?>
         <div>
         <form action="page_form.php" method="post">
+            <input type="hidden" name="space_id" value="<?php echo $space_id; ?>">
             <input type="submit" value="Create page" name="page">       
         </form>
         </div>

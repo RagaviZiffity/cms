@@ -132,25 +132,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_space'])) {
 
     <h2>Created Spaces:</h2>
     <?php
-    // // Retrieve and display all the spaces from the database
-    // $sql = "SELECT * FROM spaces";
-    // $result = $conn->query($sql);
-
-    // if ($result->num_rows > 0) {
-    //     echo "<ul>";
-    //     while ($row = $result->fetch_assoc()) {
-    //         echo "<li><strong>Space Name:</strong> " . $row["spaceName"] . "</li>";
-    //         echo "<li><strong>Description:</strong> " . $row["DESCRIPTION"] . "</li>";
-    //         echo "<hr>";
-    //     }
-    //     echo "</ul>";
-    // } else {
-    //     echo "No spaces created yet.";
-    // }
     ?>
     <div class="folder-container">
         <?php
-        // Retrieve and display all the spaces from the database
         $sql = "SELECT * FROM spaces";
         $result = $conn->query($sql);
 

@@ -16,7 +16,6 @@ function sanitize_input($data) {
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["Login"])) {
-        // Login form submitted
         header("Location: LoginPage.php");
         exit;
     }
