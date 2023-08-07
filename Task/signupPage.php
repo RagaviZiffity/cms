@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<h2>Signup Form</h2>
+<h2 style="text-align: center; margin-top: 100px;">Signup Form</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
     <br>
     <label for="username">Username:</label>

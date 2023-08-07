@@ -50,64 +50,58 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
+            body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    }
 
-        div {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            margin-top: 50px;
-        }
+    div {
+    width: 500px;
+    margin: 0 auto;
+    }
 
-        h2 {
-            text-align: left;
-        }
+    h2 {
+    font-size: 24px;
+    margin-top: 0;
+    }
 
-        h3 {
-            margin-bottom: 10px;
-        }
+    h3 {
+    font-size: 18px;
+    }
 
-        form {
-            text-align: left;
-            margin-top: 20px;
-        }
+    .page-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    }
 
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .page-link:hover {
+    background-color: #ccc;
+    }
 
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
+    form {
+    margin-top: 20px;
+    }
 
-        /* Style for the clickable page titles */
-        .page-link {
-            cursor: pointer;
-            color: #007bff;
-            text-decoration: underline;
-        }
+    input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    }
 
-        .page-link:hover {
-            color: #0056b3;
-        }
+    input[type="submit"] {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    }
     </style>
 </head>
 <body>
-    <div>
+    <div style="margin-top: 100px;">
         <div>
             <h2>Space Details</h2>
             <h3>Space name: <?= $space_name; ?></h3>
@@ -130,7 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         <div>
         <form action="page_form.php" method="post">
             <input type="hidden" name="space_id" value="<?php echo $space_id; ?>">
-            <input type="submit" value="Create page" name="page">       
+            <input type="submit" value="Create page" name="page">   
+
         </form>
         </div>
     </div>

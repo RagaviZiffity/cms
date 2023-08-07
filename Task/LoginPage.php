@@ -43,67 +43,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
         }
 
         h2 {
-            text-align: center;
-            margin-top: 20px;
+        font-size: 24px;
+        margin-top: 0;
         }
 
         form {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            margin-top: 50px;
+        width: 500px;
+        margin: 0 auto;
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
+        font-size: 16px;
+        margin-bottom: 10px;
         }
 
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
+        input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
         }
 
         input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        background-color: #000;
+        color: #fff;
+        cursor: pointer;
         }
 
-        input[type="submit"]:hover {
-            background-color: #45a049;
+        .login-form {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 20px;
         }
+
     </style>
 </head>
 <body>
-    <h2>Login</h2>
+    <h2 style="text-align: center; margin-top: 100px;">Login</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label>Username: </label>
         <input type="text" name="user" required>
         <br>
         <label>Password:</label>
         <input type="password" name="password" required>
-        <br>
+        <br><br>
         <input type="submit" value="Login">
     </form>
 </body>

@@ -7,7 +7,7 @@ $dbName = "root";
 $dbPassword = "Admin@123";
 $dbname = "userDetails";
 
-$space_id= $_POST['space_id'];
+$page_id= $_POST['page_id'];
 
 $conn = new mysqli($servername, $dbName, $dbPassword, $dbname);
 
@@ -19,17 +19,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['publish'])) {
     $page_description = $_POST["toolbox"];
     $title = $_POST["page_title"];
   
-    $sql = "INSERT INTO pages (`content`, `title`, `spaceId`) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO subpages (`content`, `title`, `page_id`) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
         die("Error: " . $conn->error);
     }
     
-    $stmt->bind_param("ssi", $page_description, $title, $space_id);
+    $stmt->bind_param("ssi", $page_description, $title, $page_id);
     
     if ($stmt->execute()) {
-        echo "Page created successfully!";
+        echo "Sub page created successfully!";
     } else {
         echo "Error: " . $stmt->error;
     }
