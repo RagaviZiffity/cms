@@ -42,57 +42,87 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <title>Login</title>
     <style>
-        body {
-        font-family: sans-serif;
-        margin: 0;
-        padding: 0;
-        }
+        /* Login Container */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    margin: 0;
+}
 
-        h2 {
-        font-size: 24px;
-        margin-top: 0;
-        }
+/* Login Title */
+.login-title {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+}
 
-        form {
-        width: 500px;
-        margin: 0 auto;
-        }
+/* Login Form */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+}
 
-        label {
-        font-size: 16px;
-        margin-bottom: 10px;
-        }
+/* Form Elements */
+.login-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #555;
+}
 
-        input {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        }
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
 
-        input[type="submit"] {
-        background-color: #000;
-        color: #fff;
-        cursor: pointer;
-        }
+.login-input:focus {
+    border-color: #007bff;
+}
 
-        .login-form {
-        background-color: #fff;
-        border: 1px solid #ccc;
-        padding: 20px;
-        }
+.login-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
 
     </style>
 </head>
 <body>
-    <h2 style="text-align: center; margin-top: 100px;">Login</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <label>Username: </label>
-        <input type="text" name="user" required>
-        <br>
-        <label>Password:</label>
-        <input type="password" name="password" required>
-        <br><br>
-        <input type="submit" value="Login">
+<div class="login-container">
+    <h2 class="login-title">Login</h2>
+    <form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <label class="login-label" for="user">Username: </label>
+        <input class="login-input" type="text" id="user" name="user" required>
+        
+        <label class="login-label" for="password">Password:</label>
+        <input class="login-input" type="password" id="password" name="password" required>
+        
+        <input class="login-button" type="submit" value="Login">
     </form>
+</div>
+
+
 </body>
 </html>

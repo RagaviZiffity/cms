@@ -17,6 +17,8 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
     exit();
 }
 
+echo "I am in";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user=$_SESSION["username"];
@@ -29,17 +31,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Error: ";
     exit;
 }
-$sql = "SELECT user_cmt, cmt FROM comments WHERE page_id='$page_id'";
-$result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    // echo "<h2>Comments:</h2>";
-    // echo "<ul>";
-
-    while ($row = $result->fetch_assoc()) {
-        $user_cmt = $row['user_cmt'];
-        $cmt = $row['cmt'];
-        
-        echo "$user_cmt : $cmt<br/>";
-    }
-}
+?>

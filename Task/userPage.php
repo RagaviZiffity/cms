@@ -6,6 +6,7 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
     header("Location: LoginPage.php");
     exit();
 }
+$user=$_SESSION["username"];
 ?>
 
 <!DOCTYPE html>
@@ -15,44 +16,61 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
+        /* Top Navigation Bar */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+}
 
-        .folder-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 50px;
-        }
+.topnav a {
+    float: right;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
 
-        .folder {
-            width: 200px;
-            height: 150px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            margin: 10px;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
+.topnav a.active {
+    background-color: #007bff;
+    color: white;
+}
 
-        .folder:hover {
-            background-color: #e0e0e0;
-        }
+/* Folder Container */
+.folder-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 20px;
+}
 
-        .folder strong {
-            font-size: 18px;
-            display: block;
-            margin-bottom: 8px;
-        }
+.folder {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.folder:hover {
+    background-color: #808080;
+    transform: scale(1.05);
+}
+
+.folder strong {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
     </style>
 </head>
 <body>
+<div class="topnav">
+  <a class="active" href="#"><?php echo "User: {$user}"; ?></a>
+</div>
+<div><h1 style="text-align: center;">Available Spaces:</h1></div>
 <div class="folder-container">
         <?php
         $user=$_SESSION["username"];
@@ -70,7 +88,6 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
 
         $sql = "SELECT * FROM spaces";
         $result = $conn->query($sql);
-        echo "Welcome: {$user}";
         //convert string to array for space access
         if ($result->num_rows > 0 ) {
             while ($row = $result->fetch_assoc()) {

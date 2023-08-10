@@ -36,103 +36,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_space'])) {
 <head>
     <title>Admin Page</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
+        /* Container for Create Spaces and Spaces List */
+.spaces-container {
+    text-align: center;
+    padding: 30px;
+}
 
-        h2 {
-            text-align: center;
-            margin-top: 20px;
-        }
+/* Create Spaces Form */
+.create-spaces-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
 
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            margin-top: 50px;
-        }
+.create-spaces-form label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+}
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
+.create-spaces-form input[type="text"],
+.create-spaces-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
 
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+.create-spaces-form input[type="text"]:focus,
+.create-spaces-form textarea:focus {
+    border-color: #007bff;
+}
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.create-spaces-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
+.create-spaces-button:hover {
+    background-color: #0056b3;
+}
 
-        .folder-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 50px;
-        }
+/* Spaces List */
+.folder-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
 
-        .folder {
-            width: 200px;
-            height: 150px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            margin: 10px;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
+.folder {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
 
-        .folder:hover {
-            background-color: #e0e0e0;
-        }
+.folder:hover {
+    background-color: #808080;
+    transform: scale(1.05);
+}
 
-        .folder strong {
-            font-size: 18px;
-            display: block;
-            margin-bottom: 8px;
-        }
+.folder strong {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
     </style>
 </head>
 <body>
-    <h2>Admin Page - Create Spaces</h2>
-    <form action="Admin.php" method="post">
+<div class="spaces-container">
+    <h2 style="text-align: center;">Create Spaces</h2>
+    <form class="create-spaces-form" action="Admin.php" method="post">
         <label>Space Name: </label>
         <input type="text" name="space_name" required>
-        <br>
+        <br><br>
         <label>Space Description:</label>
         <textarea name="space_description" rows="4" required></textarea>
-        <br>
-        <input type="submit" name="create_space" value="Create Space">
+        <br><br>
+        <input class="create-spaces-button" type="submit" name="create_space" value="Create Space">
     </form>
-
-    <h2>Created Spaces:</h2>
-    <?php
-    ?>
+    <br><br>
+    <h2 style="text-align: center;">Spaces list:</h2>
     <div class="folder-container">
         <?php
         $sql = "SELECT * FROM spaces";

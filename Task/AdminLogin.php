@@ -20,69 +20,84 @@ if ($user === 'admin' && $password === 'Admin@123') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
+        /* Admin Login Container */
+.admin-login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    margin: 0;
+}
 
-        h2 {
-            text-align: center;
-            margin-top: 20px;
-        }
+/* Admin Login Title */
+.admin-login-title {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+}
 
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            margin-top: 50px;
-        }
+/* Admin Login Form */
+.admin-login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+}
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
+/* Form Elements */
+.admin-login-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #555;
+}
 
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+.admin-login-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.admin-login-input:focus {
+    border-color: #007bff;
+}
 
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
+.admin-login-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.admin-login-button:hover {
+    background-color: #0056b3;
+}
+
     </style>
 </head>
 <body>
-    <h2>Admin Login</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <label>Username: </label>
-        <input type="text" name="adminuser" required>
-        <br>
-        <label>Password:</label>
-        <input type="password" name="adminpassword" required>
-        <br>
-        <input type="submit" value="admin Login">
+<div class="admin-login-container">
+    <h2 class="admin-login-title">Admin Login</h2>
+    <form class="admin-login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <label class="admin-login-label">Username: </label>
+        <input class="admin-login-input" type="text" name="adminuser" required>
+        
+        <label class="admin-login-label">Password:</label>
+        <input class="admin-login-input" type="password" name="adminpassword" required>
+        
+        <input class="admin-login-button" type="submit" value="Admin Login">
     </form>
+</div>
 </body>
 </html>

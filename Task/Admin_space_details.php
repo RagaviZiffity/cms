@@ -4,7 +4,6 @@ include 'connection.php';
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $space_id = $_GET['id'];
 
-    // Retrieve space details from the database based on the space ID
     $sql = "SELECT * FROM spaces WHERE spaceId='$space_id'";
     $result = $conn->query($sql);
 
@@ -13,15 +12,60 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         $space_name = $row["spaceName"];
         $space_description = $row["DESCRIPTION"];
 
-        // Display space details
-        // echo "<h2>Space Details</h2>";
-        // echo "<strong>Space Name:</strong> " . $space_name . "<br>";
-        // echo "<strong>Description:</strong> " . $space_description . "<br>";
     } else {
         echo "Space not found.";
     }
 } else {
-    echo "Invalid request.";
+    // echo "Invalid request.";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Give_access'])) {
+    $space_access = $_POST["space_access"];
+    $space_id= $_POST['space_id'];
+
+    $sql = "SELECT * FROM users WHERE username = '$space_access'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        $user_id = $row['id'];
+
+        $existing_space_access = $row['space_access'];
+
+        // Append the new space_id to the existing space_access (if it's not already there)
+        $updated_space_access = $existing_space_access;
+        if (!empty($existing_space_access) && strpos($existing_space_access, $space_id) === false) {
+            $updated_space_access .= "," . $space_id;
+        } elseif (empty($existing_space_access)) {
+            $updated_space_access = $space_id;
+        }
+
+        // Update the space_access value in the database for the specific user
+        $sql = "UPDATE users SET space_access='$updated_space_access' WHERE id='$user_id'";
+        if ($conn->query($sql) === TRUE) {
+            $sql = "SELECT * FROM spaces WHERE spaceId='$space_id'";
+        $result = $conn->query($sql);
+    
+        if ($result->num_rows === 1) {
+            $row = $result->fetch_assoc();
+            $space_name = $row["spaceName"];
+            $space_description = $row["DESCRIPTION"];
+            echo "Access granted successfully!";
+        }
+        } else {
+            echo "Error updating record: " . $conn->error;
+        }
+    } else {
+        $sql = "SELECT * FROM spaces WHERE spaceId='$space_id'";
+        $result = $conn->query($sql);
+    
+        if ($result->num_rows === 1) {
+            $row = $result->fetch_assoc();
+            $space_name = $row["spaceName"];
+            $space_description = $row["DESCRIPTION"];
+        echo "User not found.";
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -31,67 +75,96 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
+        /* Container */
+.space-details-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+}
 
-        div {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            margin-top: 50px;
-        }
+/* Access Form */
+.access-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px;
+}
 
-        h2 {
-            text-align: center;
-        }
+.access-form label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+}
 
-        h3 {
-            margin-bottom: 10px;
-        }
+.access-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
 
-        form {
-            text-align: center;
-            margin-top: 20px;
-        }
+.access-form input[type="text"]:focus {
+    border-color: #007bff;
+}
 
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.give-access-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
+.give-access-button:hover {
+    background-color: #0056b3;
+}
+
+/* Space Details */
+.space-details {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+
+.space-details h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.space-details h3 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+
     </style>
 </head>
 <body>
-    <div>
-        <div>
-        <form action="user_action.php" method="post">
-        <label>Access permission: </label>
-        <input type="hidden" name="space_id" value="<?= $space_id; ?>">
-        <input type="text" name="space_access">
-        <br><br>
-        <input type="submit" name="Give_access" value="Give access">
+<div class="space-details-container">
+    <div class="access-form">
+        <form action="Admin_space_details.php" method="post">
+            <label>Access permission: </label>
+            <input type="hidden" name="space_id" value="<?= $space_id; ?>">
+            <input class="access-input" type="text" name="space_access">
+            <br><br>
+            <input class="give-access-button" type="submit" name="Give_access" value="Give access">
         </form>
-        </div>
-        <div>
+    </div>
+    <div class="space-details">
         <h2>Space Details</h2>
         <h3>Name: <?= $space_name; ?></h3>
         <h3>Description: <?= $space_description; ?></h3>
-        </div>
     </div>
+</div>
 </body>
 </html>

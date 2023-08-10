@@ -21,6 +21,7 @@ echo $comment;
     <?php
         $sub_page_id = $_GET['sub_page_id'];
         $sub_id = $_GET['sub_id'];
+        $space_id = $_GET['space_id'];
         $sub_title = $_GET['sub_title'];
 
         $sql= "SELECT content,title FROM subpages where sub_id='$sub_id'";

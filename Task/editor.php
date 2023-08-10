@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['publish'])) {
     $stmt->bind_param("ssi", $page_description, $title, $space_id);
     
     if ($stmt->execute()) {
-        echo "Page created successfully!";
+        echo " ";
     } else {
         echo "Error: " . $stmt->error;
     }

@@ -9,50 +9,105 @@
     <script>tinymce.init({ selector:'textarea' });</script>
     <script src="page_form.js"></script>
     <style>
-        body {
-            margin-top: 100px;
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
+/* Top Navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
 }
 
-form {
-  margin: 0 auto;
+.topnav a {
+    background-color: #007bff;
+    float: right;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 16px;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
+.topnav a:hover {
+    background-color: #333;
+    color: white;
 }
 
-
-.full-featured {
-  resize: none;
+/* Form Container */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-.publish {
-  background-color: #000;
-  color: #fff;
-  cursor: pointer;
-  text-align: center;
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+.form-container span {
+    margin-left: 34%;
+    margin-top: 50px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.form-container input[type="text"],
+.form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-container input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
     </style>
     
 </head>
 <body>
     <?php
-    // space_id
     $space_id= $_POST['space_id'];
-    echo $space_id;
+    session_start();
+    include 'connection.php';
+
+    if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
+        header("Location: LoginPage.php");
+        exit();
+    }
+
+    $user= $_SESSION['username'];
     ?>
-    
+    <div class="topnav">
+            <a class="active" href="#"><?php echo "User: {$user}"; ?></a>
+    </div>
+    <div>
    <form action="editor.php" method="post">
    <input type="hidden" name="space_id" value="<?= $space_id; ?>">
-   <span style="margin-left: 34%;">Title: </span> <input type="text" name="page_title" required>
-    <textarea id="full-featured" name="toolbox"> </textarea>
+   <span style="margin-left: 34%; margin-top: 50px;">Title: </span> <input type="text" name="page_title" style="width: 500px; margin-top: 50px;"><br><br>
+   <br><br>
+    <textarea id="full-featured" name="toolbox"> </textarea><br><br>
     <input type="submit" name="publish" value="publish" style="width: 500px; margin-left: 38%;">
    </form> 
+   </div>
    
 </body>
 </html>
