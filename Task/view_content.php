@@ -15,23 +15,6 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
     header("Location: LoginPage.php");
     exit();
 }
-// $comment = $_GET['comment'];
-// echo $comment;
-
-// if ($_SERVER["REQUEST_METHOD"] === "POST") {
-//     $user = $_SESSION["username"];
-//     $page_id = $_POST['page_id'];
-//     $comment = $_POST['comment'];
-//     if (isset($_POST['submit'])) {
-
-//         $sql = "INSERT INTO comments (page_id, user_cmt, cmt) values ('$page_id', '$user', '$comment')";
-//         $result = $conn->query($sql);
-//     } else {
-//         echo "Error: ";
-//         exit;
-//     }
-// }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,18 +24,6 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title; ?></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    
-    <!-- <script>
-        function getContent($page_id){
-            $.ajax({
-            url: 'comment_view.php?page_id='+$page_id,
-            cache: false,
-            type: 'GET',
-            success:function(response){
-            $("#result").html(response);}
-            });
-        }
-    </script> -->
 </head>
 
 <body>
@@ -64,8 +35,7 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
             $page_id = $_GET['sub_page_id'];
             $space_id= $_GET['space_id'];
             $sub_id= $_GET['sub_id'];
-            
-            // $comment = $_GET['comment'];
+
             if(isset($_GET['space_id'])){
             $sql = "SELECT * FROM pages WHERE page_id='$page_id'";
             $result = $conn->query($sql);
@@ -104,7 +74,7 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
         ?>
 
         <div>
-            <!-- <h2><?= $page_title; ?></h2> -->
+            <h2><?= $page_title; ?></h2>
             <div><?= $content; ?></div>
         </div>
 

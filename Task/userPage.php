@@ -15,6 +15,11 @@ $user=$_SESSION["username"];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        function goLogout() {
+            window.location.href = 'signupPage.php';
+        }
+    </script>
     <style>
         /* Top Navigation Bar */
 .topnav {
@@ -64,6 +69,20 @@ $user=$_SESSION["username"];
     margin-bottom: 10px;
 }
 
+.log-div{
+    text-align: center;
+}
+
+#Logout-btn{
+    background-color: #555;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    color: #fff;
+}
+
     </style>
 </head>
 <body>
@@ -104,6 +123,9 @@ $user=$_SESSION["username"];
             echo "No spaces created yet.";
         }
         ?>
+    </div>
+    <div class="log-div">
+    <button id="Logout-btn" onclick="goLogout()">Logout</button>
     </div>
 </body>
 </html>

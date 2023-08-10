@@ -35,6 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_space'])) {
 <html>
 <head>
     <title>Admin Page</title>
+    <script>
+        function goLogout() {
+            window.location.href = 'signupPage.php';
+        }
+    </script>
     <style>
         /* Container for Create Spaces and Spaces List */
 .spaces-container {
@@ -115,6 +120,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_space'])) {
     margin-bottom: 10px;
 }
 
+#Logout-btn{
+    background-color: #555;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    color: #fff;
+}
+
+
     </style>
 </head>
 <body>
@@ -148,6 +164,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_space'])) {
             echo "No spaces created yet.";
         }
         ?>
+    </div><br><br>
+    <div>
+        <button id="Logout-btn" onclick="goLogout()">Logout</button>
     </div>
 </body>
 </html>

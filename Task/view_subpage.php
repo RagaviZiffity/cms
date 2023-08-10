@@ -31,7 +31,6 @@ echo $comment;
             while ($row = $result->fetch_assoc()) {
                 $title = $row['title'];
                 $content = $row['content'];
-        
             }
         } else {
             echo "No results found.";

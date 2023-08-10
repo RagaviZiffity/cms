@@ -83,6 +83,15 @@ body {
     font-size: 20px;
 }
 
+.page-link.active {
+    background: linear-gradient(180deg, #f0f0f0, #d4d4d4);
+    font-weight: bold;
+    color: #007bff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
 .add-subpage-button {
     background-color: #007bff;
     color: white;
@@ -104,8 +113,31 @@ body {
     font-size: 18px;
 }
 
+.subpage-link.active {
+    background: linear-gradient(180deg, #f0f0f0, #d4d4d4);
+    font-weight: bold;
+    color: #555;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(85, 85, 85, 0.5);
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
 .subpage-link:hover {
     text-decoration: underline;
+}
+
+.page-link,
+.subpage-link {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 20px;
+}
+
+.subpage-link {
+    cursor: pointer;
+    color: #555;
+    margin-top: 10px;
+    font-size: 18px;
 }
 
 #result {
@@ -118,3 +150,16 @@ body {
     overflow-y: auto;
 }
 
+.log-div{
+    text-align: center;
+}
+
+#Logout-btn{
+    background-color: #555;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    color: #fff;
+}

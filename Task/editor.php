@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function goBack(spaceId) {
+            window.location.href = 'user_space_details.php?id=' + spaceId;
+        }
+    </script>
+</head>
+<body>
 <?php
 header("Access-Control-Allow-Origin: *");
 print_r($_POST["toolbox"]);
@@ -35,3 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['publish'])) {
     }
 }
 ?>
+<button onclick="goBack(<?php echo $space_id; ?>)">Back</button>
+</body>
+</html>
+
