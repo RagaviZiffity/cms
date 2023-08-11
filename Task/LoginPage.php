@@ -1,118 +1,74 @@
 <?php
 session_start();
-include 'connection.php';
+require_once 'connection.php'; 
+class UserLogin {
+    private $conn;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    function sanitize_input($data)
-    {
+    public function __construct($database) {
+        $this->conn = $database->getConnection();
+    }
+
+    public function sanitizeInput($data) {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
     }
-    $user = sanitize_input($_POST["user"]);
-    $password = $_POST["password"];
 
-    $sql = "SELECT * FROM users WHERE BINARY username='$user'";
-    // $sql = "SELECT * FROM users WHERE username='$user' ";
-    $result = $conn->query($sql);
+    public function handleLogin() {
+        require_once 'connection.php';
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $user = $this->sanitizeInput($_POST["user"]);
+            $password = $_POST["password"];
 
-    if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-        $hashed_password = $row["password"];
-        if (password_verify($password, $hashed_password)) {
-            // username in a session for authentication
-            $_SESSION['is_user'] = true;
-            $_SESSION["username"] = $user;
-            header("Location: userPage.php");
-            exit();
-        } else {
-            echo "Invalid password. Please try again.";
+            $sql = "SELECT * FROM users WHERE BINARY username='$user'";
+            $result = $this->conn->query($sql);
+
+            if ($result->num_rows === 1) {
+                $row = $result->fetch_assoc();
+                $hashed_password = $row["password"];
+                if (password_verify($password, $hashed_password)) {
+                    $_SESSION['is_user'] = true;
+                    $_SESSION["username"] = $user;
+                    header("Location: userPage.php");
+                    exit();
+                } else {
+                    echo "Invalid password. Please try again.";
+                }
+            } else {
+                echo "Invalid username. Please try again.";
+            }
         }
-    } else {
-        echo "Invalid username. Please try again.";
     }
-}
+
+    public function renderLoginForm() {
+        echo '<!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Login</title>
+                    <link rel="stylesheet" href="css/LoginPage.css">
+                </head>
+                <body>
+                    <div class="login-container">
+                        <h2 class="login-title">Login</h2>
+                        <form class="login-form" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '" method="post">
+                            <label class="login-label" for="user">Username: </label>
+                            <input class="login-input" type="text" id="user" name="user" required>
+            
+                            <label class="login-label" for="password">Password:</label>
+                            <input class="login-input" type="password" id="password" name="password" required>
+            
+                            <input class="login-button" type="submit" value="Login">
+                        </form>
+                    </div>
+                </body>
+                </html>';
+    }
+} 
+$database = new DatabaseConnection();
+$userLogin = new UserLogin($database);
+
+$userLogin->handleLogin();
+$userLogin->renderLoginForm();
+
 ?>
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Login</title>
-    <style>
-        .login-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f5f5f5;
-            margin: 0;
-        }
-
-        .login-title {
-            font-size: 24px;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            color: #333;
-            text-align: center;
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 300px;
-        }
-
-        .login-label {
-            font-size: 16px;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .login-input:focus {
-            border-color: #007bff;
-        }
-
-        .login-button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .login-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div class="login-container">
-        <h2 class="login-title">Login</h2>
-        <form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <label class="login-label" for="user">Username: </label>
-            <input class="login-input" type="text" id="user" name="user" required>
-
-            <label class="login-label" for="password">Password:</label>
-            <input class="login-input" type="password" id="password" name="password" required>
-
-            <input class="login-button" type="submit" value="Login">
-        </form>
-    </div>
-</body>
-</html>

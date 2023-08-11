@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+}
+
+/* Access Form */
+.access-form,
+.space-details {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px;
+    background-color: white;
+}
+
+.access-form {
+    background-color: #f9f9f9;
+}
+
+.access-form label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.access-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.give-access-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.give-access-button:hover {
+    background-color: #0056b3;
+}
+
+/* Space Details */
+.space-details h2,
+.space-details h3 {
+    margin: 0;
+    color: #333;
+}
+
+.space-details h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.space-details h3 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Pages List */
+.pages-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pages-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pages-list li {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Subpages List */
+.subpages-list ul {
+    list-style-type: none;
+    margin: 5px 0 0 20px;
+    padding: 0;
+}
+
+.subpages-list li {
+    margin: 3px 0;
+    font-size: 14px;
+    color: #888;
+    font-weight: normal;
+}
+
+.back-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.back-button button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.back-button button:hover {
+    background-color: #333;
+}
+
+.page-title {
+    font-weight: bold;
+}
+
+.subpage-title {
+    font-weight: normal;
+}

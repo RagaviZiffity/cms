@@ -24,7 +24,7 @@
 
     $page_id = $_POST['page_id'];
 
-    
+
 
     $conn = new mysqli($servername, $dbName, $dbPassword, $dbname);
 
@@ -51,7 +51,7 @@
             echo "Error: " . $stmt->error;
         }
 
-        $sql= "SELECT spaceId FROM pages WHERE page_id= $page_id";
+        $sql = "SELECT spaceId FROM pages WHERE page_id= $page_id";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -59,10 +59,11 @@
                 $space_id = $row['spaceId'];
             }
         }
-        }
+    }
     ?>
     <div>
         <button onclick="goBack(<?php echo $space_id; ?>)">Back</button>
     </div>
 </body>
+
 </html>

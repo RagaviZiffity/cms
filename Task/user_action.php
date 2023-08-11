@@ -39,4 +39,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Give_access'])) {
         echo "User not found.";
     }
 }
-?>

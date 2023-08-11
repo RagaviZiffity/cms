@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 $servername = "localhost"; 
 $dbName = "root";
@@ -17,9 +16,6 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
     exit();
 }
 
-echo "I am in";
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user=$_SESSION["username"];
     $page_id= $_POST['page_id'];
@@ -31,5 +27,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Error: ";
     exit;
 }
-
-?>

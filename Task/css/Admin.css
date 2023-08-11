@@ -1,0 +1,87 @@
+.spaces-container {
+    text-align: center;
+    padding: 30px;
+}
+
+/* Create Spaces Form */
+.create-spaces-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.create-spaces-form label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.create-spaces-form input[type="text"],
+.create-spaces-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.create-spaces-form input[type="text"]:focus,
+.create-spaces-form textarea:focus {
+    border-color: #007bff;
+}
+
+.create-spaces-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-spaces-button:hover {
+    background-color: #0056b3;
+}
+
+/* Spaces List */
+.folder-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.folder {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.folder:hover {
+    background-color: #808080;
+    transform: scale(1.05);
+}
+
+.folder strong {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#Logout-btn{
+    background-color: #555;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    color: #fff;
+}
