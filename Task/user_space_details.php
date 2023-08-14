@@ -14,14 +14,14 @@ class UserSpaceDetailsPage {
         $this->fetchSpaceDetails();
     }
 
-    private function redirectToLoginPage() {
+    public function redirectToLoginPage() {
         if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
             header("Location: LoginPage.php");
             exit();
         }
     }
 
-    private function fetchSpaceDetails() {
+    public function fetchSpaceDetails() {
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
             $this->space_id = $_GET['id'];
 
@@ -67,37 +67,13 @@ class UserSpaceDetailsPage {
         }
     }
 
-    public function renderPage() {
-        echo '<!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Document</title>
-                    <link rel="stylesheet" href="css/user_space_details.css">
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-                    <script src="user_space_details.js"></script>
-                </head>
-                <body>';
-                
-        $this->redirectToLoginPage();
-        $this->renderTopnav();
-        $this->renderTitle();
-        $this->renderPagesAndSubpages();
-        $this->renderLogoutButton();
-        $this->renderResultContainer();
-                
-        echo '</body>
-                </html>';
-    }
-
-    private function renderTopnav() {
+    public function renderTopnav() {
         echo '<div class="topnav">
                 <a class="active" href="#">' . "User: {$this->user}" . '</a>
             </div>';
     }
 
-    private function renderTitle() {
+    public function renderTitle() {
         echo '<div class="title">
                 <h3>Space name: ' . $this->space_name . '</h3>
                 <h3>Description: ' . $this->space_description . '</h3>
@@ -108,7 +84,7 @@ class UserSpaceDetailsPage {
             </div>';
     }
 
-    private function renderPagesAndSubpages() {
+    public function renderPagesAndSubpages() {
         echo '<div class="container" style="margin-top: 100px;">
                 <div>';
         
@@ -141,13 +117,13 @@ class UserSpaceDetailsPage {
         echo '</div></div>';
     }
 
-    private function renderLogoutButton() {
+    public function renderLogoutButton() {
         echo '<div class="log-div">
                 <button id="Logout-btn" onclick="goBack()">Back</button>
             </div>';
     }
 
-    private function renderResultContainer() {
+    public function renderResultContainer() {
         echo '<div id="result"></div>';
     }
 }
@@ -159,5 +135,26 @@ include 'UserSpaceDetailsPage.php';
 
 $database = new DatabaseConnection();
 $userSpaceDetails = new UserSpaceDetailsPage($database);
-$userSpaceDetails->renderPage();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/user_space_details.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="user_space_details.js"></script>
+</head>
+<body>   
+    <?php
+    $userSpaceDetails->redirectToLoginPage();
+    $userSpaceDetails->renderTopnav();
+    $userSpaceDetails->renderTitle();
+    $userSpaceDetails->renderPagesAndSubpages();
+    $userSpaceDetails->renderLogoutButton();
+    $userSpaceDetails->renderResultContainer();
+    ?>
+</body>
+</html>

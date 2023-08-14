@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'connection.php'; // Assuming you have the database connection class defined here
+require_once 'connection.php';
 $database = new DatabaseConnection();
 $conn = $database->getConnection();
 if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
@@ -41,7 +41,7 @@ if (!isset($_SESSION['is_user']) || $_SESSION['is_user'] !== true) {
                     exit;
                 }
             } else {
-                echo "Error:wqwq ";
+                echo "Error:Invalid request ";
                 exit;
             }
         }

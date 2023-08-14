@@ -1,20 +1,24 @@
 <?php
 require_once 'connection.php';
-class SignupPage {
+class SignupPage
+{
     private $conn;
 
-    public function __construct($database) {
+    public function __construct($database)
+    {
         $this->conn = $database->getConnection();
     }
 
-    public function sanitizeInput($data) {
+    public function sanitizeInput($data)
+    {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
     }
 
-    public function handleSignup() {
+    public function handleSignup()
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST["Login"])) {
                 header("Location: LoginPage.php");
@@ -41,31 +45,6 @@ class SignupPage {
             }
         }
     }
-
-    public function renderForm() {
-        echo '<div class="form-container">
-                <h2 class="form-title">Signup Form</h2>
-                <form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">
-                    <label class="form-label" for="username">Username:</label>
-                    <input class="form-input" type="text" id="username" name="username" required>
-    
-                    <label class="form-label" for="password">Password:</label>
-                    <input class="form-input" type="password" id="password" name="password" required>
-    
-                    <label class="form-label" for="newpassword">Confirm Password:</label>
-                    <input class="form-input" type="password" id="newpassword" name="newpassword" required>
-    
-                    <div class="form-buttons">
-                        <input class="form-button" type="submit" value="Sign Up">
-                        <a class="login-link" href="LoginPage.php">Already have an account? Login</a>
-                    </div>
-                </form>
-                <form action="AdminLogin.php">
-                    <label class="form-label">Admin Login:</label>
-                    <input class="form-button" type="submit" value="Admin Login" name="AdminLogin">
-                </form>
-            </div>';
-    }
 }
 $database = new DatabaseConnection();
 $signupPage = new SignupPage($database);
@@ -76,13 +55,35 @@ $signupPage->handleSignup();
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Signup Page</title>
     <link rel="stylesheet" href="css/signupPage.css">
 </head>
+
 <body>
-    <?php
-    $signupPage->renderForm();
-    ?>
+    <div class="form-container">
+        <h2 class="form-title">Signup Form</h2>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <label class="form-label" for="username">Username:</label>
+            <input class="form-input" type="text" id="username" name="username" required>
+
+            <label class="form-label" for="password">Password:</label>
+            <input class="form-input" type="password" id="password" name="password" required>
+
+            <label class="form-label" for="newpassword">Confirm Password:</label>
+            <input class="form-input" type="password" id="newpassword" name="newpassword" required>
+
+            <div class="form-buttons">
+                <input class="form-button" type="submit" value="Sign Up">
+                <a class="login-link" href="LoginPage.php">Already have an account? Login</a>
+            </div>
+        </form>
+        <form action="AdminLogin.php">
+            <label class="form-label">Admin Login:</label>
+            <input class="form-button" type="submit" value="Admin Login" name="AdminLogin">
+        </form>
+    </div>
 </body>
+
 </html>
